@@ -1,4 +1,4 @@
-package com.example.dcheroes
+package com.example.dcheroes.list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,10 +6,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dcheroes.R
+import com.example.dcheroes.model.SuperheroeItem
 import com.squareup.picasso.Picasso
 
 class SuperHeroesAdapter(
-    private val superHeroesList: ArrayList<SuperheroeItem>
+    private val superHeroesList: ArrayList<SuperheroeItem>,
+    private val onItemClicked: (SuperheroeItem) -> Unit
 ) : RecyclerView.Adapter<SuperHeroesAdapter.SuperheroeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuperheroeViewHolder {
@@ -20,6 +23,7 @@ class SuperHeroesAdapter(
 
     override fun onBindViewHolder(holder: SuperheroeViewHolder, position: Int) {
         val superheroe = superHeroesList[position]
+        holder.itemView.setOnClickListener { onItemClicked(superHeroesList[position]) }
         holder.bind(superheroe)
     }
 

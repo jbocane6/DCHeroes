@@ -8,10 +8,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".detalle.DetalleActivity">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/text_superhero"
             style="@style/Texto_titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/img_superheroe"
             android:layout_width="0dp"
             android:layout_height="400dp"
             android:layout_marginStart="8dp"
@@ -34,7 +34,7 @@
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/text_superhero"
             app:srcCompat="@drawable/superman" />
 
         <TextView
@@ -46,10 +46,10 @@
             android:layout_marginTop="16dp"
             android:text="@string/name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintTop_toBottomOf="@+id/img_superheroe" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/text_power"
             style="@style/Texto_normal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -62,10 +62,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/text_alias" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/text_alias"
             style="@style/Texto_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintTop_toBottomOf="@+id/img_superheroe" />
 
         <TextView
             android:id="@+id/textView5"

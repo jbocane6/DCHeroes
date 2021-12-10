@@ -1,9 +1,14 @@
-package com.example.dcheroes
+package com.example.dcheroes.list
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dcheroes.R
+import com.example.dcheroes.detalle.DetalleActivity
+import com.example.dcheroes.model.Superheroe
+import com.example.dcheroes.model.SuperheroeItem
 import com.google.gson.Gson
 
 class ListSuperheroesActivity : AppCompatActivity() {
@@ -21,7 +26,7 @@ class ListSuperheroesActivity : AppCompatActivity() {
         //listSuperheroes = createMockSuperHeroes()
         listSuperheroes = loadMockSuperHeroesFromJson()
 
-        superHeroesAdapter = SuperHeroesAdapter(listSuperheroes)
+        superHeroesAdapter = SuperHeroesAdapter(listSuperheroes, onItemClicked = { onSuperHeroeClicked(it) })
 
         /*superHeroesRecyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))*/
         superHeroesRecyclerView.apply {
@@ -29,6 +34,12 @@ class ListSuperheroesActivity : AppCompatActivity() {
             adapter = superHeroesAdapter
             setHasFixedSize(false)
         }
+    }
+
+    private fun onSuperHeroeClicked(superHeroe: SuperheroeItem) {
+        val intent = Intent(this, DetalleActivity::class.java)
+        intent.putExtra("superheroe", superHeroe)
+        startActivity(intent)
     }
 
     private fun loadMockSuperHeroesFromJson(): ArrayList<SuperheroeItem> {
