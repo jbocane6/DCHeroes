@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">DCHeroes</string>
+    <string name="superman">Superman</string>
+    <string name="superman_name">Clark Kent</string>
+    <string name="superman_powers">Super strength, flight, invulnerability, super speed, heat vision, freeze breath, x-ray vision, superhuman hearing, healing factor</string>
+    <string name="name">Name:</string>
+    <string name="powers">Powers:</string>
+    <string name="description">Superhero picture</string>
 </resources>
