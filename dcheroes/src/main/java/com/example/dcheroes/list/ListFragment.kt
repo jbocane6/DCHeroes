@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dcheroes.databinding.FragmentListBinding
+import com.example.dcheroes.main.MainActivity
 import com.example.dcheroes.model.Superheroe
 import com.example.dcheroes.model.SuperheroeItem
 import com.google.gson.Gson
@@ -29,6 +30,7 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity?)?.hideIcon()
         listSuperHeroes = loadMockSuperHeroesFromJson()
         superHeroesAdapter =
             SuperHeroesAdapter(listSuperHeroes, onItemClicked = { onSuperHeroeClicked(it) })
