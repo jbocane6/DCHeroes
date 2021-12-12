@@ -1,8 +1,7 @@
 package com.example.dcheroes.detalle
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.dcheroes.R
+import androidx.appcompat.app.AppCompatActivity
 import com.example.dcheroes.databinding.ActivityDetalleBinding
 import com.example.dcheroes.model.SuperheroeItem
 import com.squareup.picasso.Picasso
