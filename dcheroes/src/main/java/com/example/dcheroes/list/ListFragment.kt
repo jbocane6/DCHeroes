@@ -5,25 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dcheroes.databinding.FragmentListBinding
 import com.example.dcheroes.main.MainActivity
-import com.example.dcheroes.model.Superheroe
 import com.example.dcheroes.model.SuperheroeItem
-import com.google.gson.Gson
 
 class ListFragment : Fragment() {
 
     private lateinit var listBinding: FragmentListBinding
+    private lateinit var listViewModel: ListViewModel
     private lateinit var superHeroesAdapter: SuperHeroesAdapter
-    private lateinit var listSuperHeroes: ArrayList<SuperheroeItem>
+    private var listSuperheroes: ArrayList<SuperheroeItem> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         listBinding = FragmentListBinding.inflate(inflater, container, false)
+        listViewModel = ViewModelProvider(this)[ListViewModel::class.java]
 
         return listBinding.root
     }
@@ -31,9 +32,13 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity?)?.hideIcon()
-        listSuperHeroes = loadMockSuperHeroesFromJson()
-        superHeroesAdapter =
-            SuperHeroesAdapter(listSuperHeroes, onItemClicked = { onSuperHeroeClicked(it) })
+        listViewModel.loadMockSuperHeroesFromJson(context?.assets?.open("superHeroes.json"))
+
+        listViewModel.onSuperheroesLoaded.observe(viewLifecycleOwner, { result ->
+            onSuperheroesLoadedSubscribe(result)
+        })
+
+        superHeroesAdapter = SuperHeroesAdapter(listSuperheroes, onItemClicked = { onSuperHeroeClicked(it) })
         listBinding.superheroesRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = superHeroesAdapter
@@ -41,16 +46,20 @@ class ListFragment : Fragment() {
         }
     }
 
+    private fun onSuperheroesLoadedSubscribe(result: ArrayList<SuperheroeItem>?) {
+        result?.let { listSuperheroes ->
+
+            superHeroesAdapter.appendItems(listSuperheroes)
+        /*
+            this.listSuperheroes = listSuperheroes
+            superHeroesAdapter.notifyDataSetChanged()
+
+             */
+        }
+    }
+
     private fun onSuperHeroeClicked(superheroe: SuperheroeItem) {
         findNavController().navigate(ListFragmentDirections.actionListFragmentToDetailFragment(superheroe = superheroe))
     }
 
-    private fun loadMockSuperHeroesFromJson(): ArrayList<SuperheroeItem> {
-        val superHeroesString: String = context?.assets?.open("superHeroes.json")?.bufferedReader()
-            .use { it!!.readText() } //TODO reparar
-        val gson = Gson()
-        val data = gson.fromJson(superHeroesString, Superheroe::class.java)
-
-        return data
-    }
 }

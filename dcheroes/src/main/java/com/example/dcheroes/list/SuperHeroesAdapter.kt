@@ -7,11 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dcheroes.R
+import com.example.dcheroes.model.Superheroe
 import com.example.dcheroes.model.SuperheroeItem
 import com.squareup.picasso.Picasso
 
 class SuperHeroesAdapter(
-    private val superHeroesList: ArrayList<SuperheroeItem>,
+    private val superheroesList: ArrayList<SuperheroeItem>,
     private val onItemClicked: (SuperheroeItem) -> Unit
 ) : RecyclerView.Adapter<SuperHeroesAdapter.SuperheroeViewHolder>() {
 
@@ -22,12 +23,18 @@ class SuperHeroesAdapter(
     }
 
     override fun onBindViewHolder(holder: SuperheroeViewHolder, position: Int) {
-        val superheroe = superHeroesList[position]
-        holder.itemView.setOnClickListener { onItemClicked(superHeroesList[position]) }
+        val superheroe = superheroesList[position]
+        holder.itemView.setOnClickListener { onItemClicked(superheroesList[position]) }
         holder.bind(superheroe)
     }
 
-    override fun getItemCount(): Int = superHeroesList.size
+    override fun getItemCount(): Int = superheroesList.size
+
+    fun appendItems(newItems: ArrayList<SuperheroeItem>) {
+        this.superheroesList.clear()
+        superheroesList.addAll(newItems)
+        notifyDataSetChanged()
+    }
 
     class SuperheroeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
